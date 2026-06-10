@@ -5,10 +5,8 @@ and runs a Monte Carlo over the remaining fixtures to estimate each team's
 probability of winning the league, finishing top 2 / top 4, or being relegated.
 
 Data comes from the Norwegian FA's own match export (fotball.no/fotballdata),
-not from scraping. That export is authoritative, includes real match dates and
-the full remaining fixture list, and never blocks requests. The app reads a
-cached CSV from GitHub and never touches the source at runtime, so it deploys
-cleanly to shinyapps.io and reruns fast every round.
+not from scraping. The app reads a cached CSV from GitHub and never touches the source at runtime, so it deploys
+cleanly to shinyapps.io and reruns every round.
 
 ## What's here
 
@@ -28,7 +26,7 @@ data/kamper_2026.xlsx        FA export, 2026 season
 The Norwegian FA publishes each tournament's full match list. To refresh:
 
 1. Go to the Eliteserien tournament on fotball.no/fotballdata, open the
-   "Kamper" (matches) view, and use Eksporter to download an Excel file.
+   "Kamper" (matches) view, and use "last ned" to download an Excel file.
 2. Save it into `data/` as `kamper_2026.xlsx` (overwrite the old one). Keep
    `kamper_2025.xlsx` for the historical prior.
 3. Rebuild the cache:
@@ -61,7 +59,7 @@ Click "Run simulation" to fit the model and run the Monte Carlo.
    git or GitHub Desktop, not drag-and-drop of individual files).
 2. In `R/fetch_data.R`, set `CACHE_URL` to your repo's raw CSV URL:
    ```
-   https://raw.githubusercontent.com/<your-user>/eliteserien-sim/main/data/results_cache.csv
+   https://raw.githubusercontent.com/<your-user>/Tippeliga-simulator/main/data/results_cache.csv
    ```
 3. Deploy:
    ```r
@@ -124,5 +122,4 @@ performance, which is the point of using goals rather than results.
 - **Club name spellings:** `NAME_MAP` in `R/fetch_data.R` maps FA export
   spellings ("Sandefjord Fotball", "Sarpsborg 08") to canonical names. Add a
   line there if a newly promoted club needs it.
-- **European congestion** is not modelled (relevant for Bodø/Glimt's deep runs).
-  Add a fatigue term to the expected-goals calc in `R/model.R` if you want it.
+- **European congestion** is not modelled. Add a fatigue term to the expected-goals calc in `R/model.R` if you want it.

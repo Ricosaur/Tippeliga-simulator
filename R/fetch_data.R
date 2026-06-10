@@ -32,7 +32,7 @@ SEASON_FILES <- list(
 )
 
 # Raw-GitHub URL the app reads from. EDIT after you create the repo:
-CACHE_URL  <- "https://raw.githubusercontent.com/REPLACE_ME/eliteserien-sim/main/data/results_cache.csv"
+CACHE_URL  <- "https://raw.githubusercontent.com/ricosaur/Tippeliga-simulator/main/data/results_cache.csv"
 CACHE_PATH <- "data/results_cache.csv"
 
 # Source spellings on fotball.no that need mapping to one canonical name.

@@ -24,7 +24,7 @@ source("R/model.R")
 derive_remaining <- function(results, target_season = max(results$season)) {
   results %>%
     filter(season == target_season, !played) %>%
-    dplyr::select(home, away)
+    dplyr::select(date, home, away)
 }
 
 # ----- Palette ---------------------------------------------------------------
@@ -90,7 +90,13 @@ ui <- fluidPage(
           "but-unlucky teams from showing a false 0% chance."),
         br(),
         sliderInput("n_sims", "Simulations",
-                    min = 2000, max = 40000, value = 12000, step = 2000),
+                    min = 2000, max = 20000, value = 4000, step = 1000),
+        br(),
+        sliderInput("fatigue_mult", "European fatigue penalty",
+                    min = 0.75, max = 1.0, value = 0.92, step = 0.01),
+        helpText(class = "stat-note",
+          "Multiplies expected goals for a team that played a European match in the ",
+          "4 days prior. 1.0 = no effect. Applies to fitting and simulation."),
         br(),
         actionButton("run", "Run simulation",
                      style = sprintf("background:%s;color:#0f1c2e;border:none;
@@ -123,7 +129,8 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  results <- reactive({ read_cache_remote() })
+  results       <- reactive({ read_cache_remote() })
+  euro_fixtures <- reactive({ read_european_fixtures() })
 
   output$data_status <- renderText({
     r <- results(); cur <- max(r$season)
@@ -135,11 +142,14 @@ server <- function(input, output, session) {
 
   sim <- eventReactive(input$run, {
     r <- results(); cur <- max(r$season)
-    fit <- fit_dixon_coles(r, half_life_days = input$half_life)
+    euro <- euro_fixtures()
+    fit <- fit_dixon_coles(r, half_life_days = input$half_life,
+                           euro_dates = euro, fatigue_mult = input$fatigue_mult)
     rem <- derive_remaining(r, cur)
     res <- simulate_season(fit, r, rem, n_sims = input$n_sims, seed = 1,
                            param_uncertainty = input$param_unc,
-                           shrink = input$shrink, current_season = cur)
+                           shrink = input$shrink, current_season = cur,
+                           euro_dates = euro, fatigue_mult = input$fatigue_mult)
     list(fit = fit, res = res, n_rem = nrow(rem))
   }, ignoreNULL = FALSE)
 

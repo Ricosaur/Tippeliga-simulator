@@ -22,6 +22,22 @@ suppressWarnings(suppressMessages({
   library(dplyr)
 }))
 
+# ----- European fatigue ------------------------------------------------------
+
+# Returns a logical vector: TRUE where the team played a European game in the
+# `window` days strictly before each match date. Precomputed outside negll()
+# and the sim loop so it doesn't re-run on every optimizer call or iteration.
+flag_fatigued <- function(teams, dates, euro_dates, window) {
+  if (is.null(euro_dates) || nrow(euro_dates) == 0)
+    return(rep(FALSE, length(teams)))
+  vapply(seq_along(teams), function(k) {
+    d <- dates[k]; t <- teams[k]
+    any(euro_dates$team == t &
+          euro_dates$date >= (d - window) &
+          euro_dates$date <  d)
+  }, logical(1))
+}
+
 # ----- Recency weights -------------------------------------------------------
 
 decay_weights <- function(dates, ref_date, half_life_days) {
@@ -46,7 +62,9 @@ dc_tau <- function(hg, ag, lambda, mu, rho) {
 # Returns attack/defence per team, home advantage, rho, and the covariance of
 # the parameter estimates (used for uncertainty sampling). hessian = TRUE asks
 # optim for the Hessian at the optimum; its inverse is the parameter covariance.
-fit_dixon_coles <- function(results, half_life_days = 180, ref_date = Sys.Date()) {
+fit_dixon_coles <- function(results, half_life_days = 180, ref_date = Sys.Date(),
+                            euro_dates = NULL, fatigue_mult = 0.92,
+                            fatigue_window = 4L) {
   played <- results %>% filter(played)
   if (nrow(played) < 20) stop("Not enough played matches to fit the model.")
 
@@ -67,10 +85,16 @@ fit_dixon_coles <- function(results, half_life_days = 180, ref_date = Sys.Date()
     list(att = att, def = def, hfa = p[2 * nt], rho = p[2 * nt + 1])
   }
 
+  # Fatigue multipliers: precomputed once, captured by the negll closure.
+  fat_h <- ifelse(flag_fatigued(played$home, played$date, euro_dates, fatigue_window),
+                  fatigue_mult, 1)
+  fat_a <- ifelse(flag_fatigued(played$away, played$date, euro_dates, fatigue_window),
+                  fatigue_mult, 1)
+
   negll <- function(p) {
     pr <- unpack(p)
-    lambda <- exp(pr$att[hi] - pr$def[ai] + pr$hfa)
-    mu     <- exp(pr$att[ai] - pr$def[hi])
+    lambda <- exp(pr$att[hi] - pr$def[ai] + pr$hfa) * fat_h
+    mu     <- exp(pr$att[ai] - pr$def[hi])            * fat_a
     tau <- dc_tau(played$hg, played$ag, lambda, mu, pr$rho)
     ll <- log(tau) + dpois(played$hg, lambda, log = TRUE) +
       dpois(played$ag, mu, log = TRUE)
@@ -147,7 +171,8 @@ current_standings <- function(results, teams, season = NULL) {
 simulate_season <- function(fit, results, remaining, n_sims = 10000,
                             max_goals = 8, seed = NULL,
                             param_uncertainty = TRUE, shrink = 0,
-                            current_season = NULL) {
+                            current_season = NULL, euro_dates = NULL,
+                            fatigue_mult = 0.92, fatigue_window = 4L) {
   if (!is.null(seed)) set.seed(seed)
 
   # The league being simulated is the set of teams with remaining fixtures
@@ -165,11 +190,16 @@ simulate_season <- function(fit, results, remaining, n_sims = 10000,
   pts_sum <- setNames(numeric(nt), sim_teams)
   pos_sum <- setNames(numeric(nt), sim_teams)
 
-  # Precompute fixture team indices once.
+  # Precompute fixture team indices and fatigue multipliers once (not per-sim).
   rem <- remaining %>% filter(home %in% sim_teams, away %in% sim_teams)
   fh <- match(rem$home, sim_teams)
   fa <- match(rem$away, sim_teams)
   nf <- nrow(rem)
+
+  h_mult <- ifelse(flag_fatigued(rem$home, rem$date, euro_dates, fatigue_window),
+                   fatigue_mult, 1)
+  a_mult <- ifelse(flag_fatigued(rem$away, rem$date, euro_dates, fatigue_window),
+                   fatigue_mult, 1)
 
   # Helper: given a parameter vector, return named attack/defence/hfa.
   ratings_from_par <- function(par) {
@@ -189,9 +219,9 @@ simulate_season <- function(fit, results, remaining, n_sims = 10000,
       ratings_from_par(par_draw)
     } else base_ratings
 
-    # Expected goals per remaining fixture under this draw.
-    lh <- exp(r$att[rem$home] - r$def[rem$away] + r$hfa)
-    la <- exp(r$att[rem$away] - r$def[rem$home])
+    # Expected goals per remaining fixture under this draw, with fatigue applied.
+    lh <- exp(r$att[rem$home] - r$def[rem$away] + r$hfa) * h_mult
+    la <- exp(r$att[rem$away] - r$def[rem$home])          * a_mult
 
     pts <- base$pts; gf <- base$gf; ga <- base$ga
     for (k in seq_len(nf)) {

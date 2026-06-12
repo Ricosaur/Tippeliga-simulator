@@ -31,9 +31,12 @@ SEASON_FILES <- list(
   "2026" = "data/kamper_2026.xlsx"
 )
 
-# Raw-GitHub URL the app reads from. EDIT after you create the repo:
+# Raw-GitHub URLs the app reads from. EDIT after you create the repo:
 CACHE_URL  <- "https://raw.githubusercontent.com/ricosaur/Tippeliga-simulator/main/data/results_cache.csv"
 CACHE_PATH <- "data/results_cache.csv"
+
+EURO_URL   <- "https://raw.githubusercontent.com/ricosaur/Tippeliga-simulator/main/data/european_fixtures_2026.csv"
+EURO_PATH  <- "data/european_fixtures_2026.csv"
 
 # Source spellings on fotball.no that need mapping to one canonical name.
 NAME_MAP <- c(
@@ -76,6 +79,24 @@ harmonise_names <- function(x) {
   x <- trimws(as.character(x))
   for (nm in names(NAME_MAP)) x[x == nm] <- NAME_MAP[[nm]]
   x
+}
+
+# ----- Reading European fixture dates (used by the app) ----------------------
+
+# Returns a data frame (team, date, competition) of European match dates for
+# Norwegian clubs. Empty data frame if neither the remote URL nor the local file
+# is available -- the model treats that as "no fatigue effect".
+read_european_fixtures <- function(url = EURO_URL, local = EURO_PATH) {
+  empty <- data.frame(team = character(), date = as.Date(character()),
+                      competition = character())
+  out <- tryCatch(readr::read_csv(url, show_col_types = FALSE),
+                  error = function(e) NULL)
+  if (is.null(out) && file.exists(local)) {
+    out <- tryCatch(readr::read_csv(local, show_col_types = FALSE),
+                    error = function(e) NULL)
+  }
+  if (is.null(out) || nrow(out) == 0) return(empty)
+  out %>% mutate(date = as.Date(date), team = as.character(team))
 }
 
 # ----- Building the cache from FA xlsx exports -------------------------------

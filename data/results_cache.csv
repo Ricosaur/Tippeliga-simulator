@@ -347,11 +347,11 @@ date,home,away,hg,ag,season,played
 2026-07-22,Bodø/Glimt,HamKam,3,0,2026,TRUE
 2026-07-22,Lillestrøm,Viking,1,2,2026,TRUE
 2026-07-25,Kristiansund,Start,1,2,2026,TRUE
-2026-07-26,Aalesund,Viking,NA,NA,2026,FALSE
-2026-07-26,Brann,Vålerenga,NA,NA,2026,FALSE
-2026-07-26,KFUM,Molde,NA,NA,2026,FALSE
-2026-07-26,Sandefjord,Bodø/Glimt,NA,NA,2026,FALSE
-2026-07-26,Sarpsborg,HamKam,NA,NA,2026,FALSE
+2026-07-26,Aalesund,Viking,1,1,2026,TRUE
+2026-07-26,Brann,Vålerenga,2,3,2026,TRUE
+2026-07-26,KFUM,Molde,2,4,2026,TRUE
+2026-07-26,Sandefjord,Bodø/Glimt,0,3,2026,TRUE
+2026-07-26,Sarpsborg,HamKam,1,0,2026,TRUE
 2026-07-27,Rosenborg,Fredrikstad,NA,NA,2026,FALSE
 2026-07-31,Bodø/Glimt,Lillestrøm,NA,NA,2026,FALSE
 2026-07-31,Vålerenga,HamKam,NA,NA,2026,FALSE

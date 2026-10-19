@@ -1,0 +1,103 @@
+date,team,opponent,competition,venue,played
+2025-01-23,Bodø/Glimt,Maccabi Tel-Aviv,Europa League,home,TRUE
+2025-01-30,Bodø/Glimt,Nice,Europa League,away,TRUE
+2025-02-13,Bodø/Glimt,FC Twente,Europa League,away,TRUE
+2025-02-13,Molde,Shamrock Rovers,Conference League,home,TRUE
+2025-02-20,Bodø/Glimt,FC Twente,Europa League,home,TRUE
+2025-02-20,Molde,Shamrock Rovers,Conference League,away,TRUE
+2025-03-06,Bodø/Glimt,Olympiacos,Europa League,home,TRUE
+2025-03-06,Molde,Legia Warsaw,Conference League,home,TRUE
+2025-03-13,Bodø/Glimt,Olympiacos,Europa League,away,TRUE
+2025-03-13,Molde,Legia Warsaw,Conference League,away,TRUE
+2025-04-10,Bodø/Glimt,Lazio,Europa League,home,TRUE
+2025-04-17,Bodø/Glimt,Lazio,Europa League,away,TRUE
+2025-05-01,Bodø/Glimt,Tottenham Hotspur,Europa League,away,TRUE
+2025-05-08,Bodø/Glimt,Tottenham Hotspur,Europa League,home,TRUE
+2025-07-23,Brann,RB Salzburg,CL qualifying,home,TRUE
+2025-07-24,Rosenborg,Banga,ECL qualifying,home,TRUE
+2025-07-24,Viking,FC Koper,ECL qualifying,home,TRUE
+2025-07-30,Brann,RB Salzburg,CL qualifying,away,TRUE
+2025-07-31,Rosenborg,Banga,ECL qualifying,away,TRUE
+2025-07-31,Viking,FC Koper,ECL qualifying,away,TRUE
+2025-08-07,Brann,BK Häcken,EL qualifying,away,TRUE
+2025-08-07,Fredrikstad,FC Midtjylland,EL qualifying,home,TRUE
+2025-08-07,Rosenborg,Hammarby IF,ECL qualifying,home,TRUE
+2025-08-07,Viking,Istanbul Basaksehir,ECL qualifying,home,TRUE
+2025-08-13,Viking,Istanbul Basaksehir,ECL qualifying,away,TRUE
+2025-08-14,Brann,BK Häcken,EL qualifying,home,TRUE
+2025-08-14,Fredrikstad,FC Midtjylland,EL qualifying,away,TRUE
+2025-08-14,Rosenborg,Hammarby IF,ECL qualifying,away,TRUE
+2025-08-20,Bodø/Glimt,SK Sturm Graz,CL qualifying,home,TRUE
+2025-08-21,Brann,AEK Larnaca,EL qualifying,home,TRUE
+2025-08-21,Fredrikstad,Crystal Palace,ECL qualifying,away,TRUE
+2025-08-21,Rosenborg,Mainz,ECL qualifying,home,TRUE
+2025-08-26,Bodø/Glimt,SK Sturm Graz,CL qualifying,away,TRUE
+2025-08-27,Brann,AEK Larnaca,EL qualifying,away,TRUE
+2025-08-28,Fredrikstad,Crystal Palace,ECL qualifying,home,TRUE
+2025-08-28,Rosenborg,Mainz,ECL qualifying,away,TRUE
+2025-09-17,Bodø/Glimt,Slavia Prague,Champions League,away,TRUE
+2025-09-25,Brann,Lille,Europa League,away,TRUE
+2025-09-30,Bodø/Glimt,Tottenham Hotspur,Champions League,home,TRUE
+2025-10-02,Brann,FC Utrecht,Europa League,home,TRUE
+2025-10-22,Bodø/Glimt,Galatasaray,Champions League,away,TRUE
+2025-10-23,Brann,Rangers,Europa League,home,TRUE
+2025-11-04,Bodø/Glimt,AS Monaco,Champions League,home,TRUE
+2025-11-06,Brann,Bologna,Europa League,away,TRUE
+2025-11-25,Bodø/Glimt,Juventus,Champions League,home,TRUE
+2025-11-27,Brann,PAOK,Europa League,away,TRUE
+2025-12-10,Bodø/Glimt,Borussia Dortmund,Champions League,away,TRUE
+2025-12-11,Brann,Fenerbahce,Europa League,home,TRUE
+2026-01-20,Bodø/Glimt,Manchester City,Champions League,home,TRUE
+2026-01-22,Brann,FC Midtjylland,Europa League,home,TRUE
+2026-01-28,Bodø/Glimt,Atlético Madrid,Champions League,away,TRUE
+2026-01-29,Brann,SK Sturm Graz,Europa League,away,TRUE
+2026-02-18,Bodø/Glimt,Internazionale,Champions League,home,TRUE
+2026-02-19,Brann,Bologna,Europa League,home,TRUE
+2026-02-24,Bodø/Glimt,Internazionale,Champions League,away,TRUE
+2026-02-26,Brann,Bologna,Europa League,away,TRUE
+2026-03-11,Bodø/Glimt,Sporting CP,Champions League,home,TRUE
+2026-03-17,Bodø/Glimt,Sporting CP,Champions League,away,TRUE
+2026-07-23,Brann,Universitatea Cluj,ECL qualifying,away,TRUE
+2026-07-23,Tromsø,FC Hradec Králové,EL qualifying,home,TRUE
+2026-07-30,Brann,Universitatea Cluj,ECL qualifying,home,TRUE
+2026-07-30,Tromsø,FC Hradec Králové,EL qualifying,away,TRUE
+2026-08-04,Bodø/Glimt,Union St.-Gilloise,CL qualifying,away,TRUE
+2026-08-05,Brann,Apollon Limassol,ECL qualifying,home,TRUE
+2026-08-06,Tromsø,CFR Cluj-Napoca,ECL qualifying,away,TRUE
+2026-08-11,Bodø/Glimt,Union St.-Gilloise,CL qualifying,home,TRUE
+2026-08-11,Brann,Apollon Limassol,ECL qualifying,away,TRUE
+2026-08-13,Tromsø,CFR Cluj-Napoca,ECL qualifying,home,TRUE
+2026-08-18,Viking,Dinamo Zagreb,CL qualifying,away,TRUE
+2026-08-19,Bodø/Glimt,NEC Nijmegen,CL qualifying,away,TRUE
+2026-08-20,Brann,PAOK,ECL qualifying,away,TRUE
+2026-08-20,Lillestrøm,Egnatia,EL qualifying,away,TRUE
+2026-08-20,Tromsø,Brighton & Hove Albion,ECL qualifying,home,TRUE
+2026-08-25,Bodø/Glimt,NEC Nijmegen,CL qualifying,home,TRUE
+2026-08-26,Viking,Dinamo Zagreb,CL qualifying,home,TRUE
+2026-08-27,Brann,PAOK,ECL qualifying,home,TRUE
+2026-08-27,Lillestrøm,Egnatia,EL qualifying,home,TRUE
+2026-08-27,Tromsø,Brighton & Hove Albion,ECL qualifying,away,TRUE
+2026-09-09,Viking,VfB Stuttgart,Champions League,away,TRUE
+2026-09-10,Bodø/Glimt,Bayern Munich,Champions League,away,TRUE
+2026-09-17,Lillestrøm,Torreense,Europa League,home,TRUE
+2026-10-13,Viking,Bayern Munich,Champions League,home,TRUE
+2026-10-14,Bodø/Glimt,Borussia Dortmund,Champions League,home,TRUE
+2026-10-15,Brann,Lincoln Red Imps,Conference League,home,TRUE
+2026-10-15,Lillestrøm,Sparta Prague,Europa League,away,TRUE
+2026-10-20,Bodø/Glimt,Napoli,Champions League,away,FALSE
+2026-10-21,Viking,Aston Villa,Champions League,away,FALSE
+2026-10-22,Brann,Kauno Zalgiris,Conference League,away,FALSE
+2026-10-22,Lillestrøm,Real Sociedad,Europa League,home,FALSE
+2026-11-03,Bodø/Glimt,Lille,Champions League,home,FALSE
+2026-11-04,Viking,Sabah FK,Champions League,home,FALSE
+2026-11-05,Brann,Sint-Truidense,Conference League,away,FALSE
+2026-11-05,Lillestrøm,Viktoria Plzen,Europa League,home,FALSE
+2026-11-24,Bodø/Glimt,LASK Linz,Champions League,home,FALSE
+2026-11-25,Viking,Atlético Madrid,Champions League,away,FALSE
+2026-11-26,Brann,AGF,Conference League,home,FALSE
+2026-11-26,Lillestrøm,Lyon,Europa League,away,FALSE
+2026-12-08,Viking,Feyenoord Rotterdam,Champions League,home,FALSE
+2026-12-09,Bodø/Glimt,Lens,Champions League,away,FALSE
+2026-12-10,Brann,Braga,Conference League,home,FALSE
+2026-12-10,Lillestrøm,Levski Sofia,Europa League,away,FALSE
+2026-12-17,Brann,KAA Gent,Conference League,away,FALSE

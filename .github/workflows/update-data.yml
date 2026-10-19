@@ -1,15 +1,18 @@
 name: Rebuild results cache
 
-# Rebuilds data/results_cache.csv whenever you push updated FA xlsx exports.
-# There is no scraping: the Norwegian FA match export needs a browser session,
-# so you download kamper_<year>.xlsx yourself and commit it. This Action then
-# regenerates the CSV the Shiny app reads, so you never hand-edit the CSV.
+# Fetches Eliteserien results/fixtures and the UEFA schedule for Norwegian
+# clubs from ESPN's public API, rebuilds data/results_cache.csv and
+# data/europe_cache.csv, and stamps data/last_updated.txt. No manual
+# downloads needed. The Shiny app reads all three files from this repo.
+#
+# The timestamp changes on every run, so there is one commit per day. That
+# lets the app show when the data was last checked, and keeps the repo
+# active so GitHub never pauses the schedule.
 
 on:
-  push:
-    paths:
-      - "data/kamper_*.xlsx"     # triggers only when you add/update an export
-  workflow_dispatch:             # or run it manually from the Actions tab
+  schedule:
+    - cron: "30 22 * * *"   # daily, 22:30 UTC = after the evening kick-offs
+  workflow_dispatch:         # or run it manually from the Actions tab
 
 permissions:
   contents: write
@@ -25,16 +28,18 @@ jobs:
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: "release"
-
-      - name: Cache R packages
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-rpkgs-${{ hashFiles('update_cache.R') }}
+          use-public-rspm: true    # prebuilt Linux binaries, fast installs
 
       - name: Install dependencies
-        run: install.packages(c("dplyr","readr","lubridate","readxl","tibble"))
-        shell: Rscript {0}
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::dplyr
+            any::readr
+            any::lubridate
+            any::tibble
+            any::jsonlite
+            any::curl
 
       - name: Rebuild cache
         run: Rscript update_cache.R
@@ -43,10 +48,10 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/results_cache.csv
+          git add data/results_cache.csv data/europe_cache.csv data/last_updated.txt
           if git diff --staged --quiet; then
             echo "Cache unchanged."
           else
-            git commit -m "Rebuild results cache ($(date -u +%Y-%m-%d))"
+            git commit -m "Update results cache ($(date -u +%Y-%m-%d))"
             git push
           fi
